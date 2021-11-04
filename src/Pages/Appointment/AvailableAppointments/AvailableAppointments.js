@@ -1,11 +1,11 @@
 import React from 'react';
-import Box from '@mui/material/Box';
 
 import Grid from '@mui/material/Grid';
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
+import Booking from '../Booking/Booking';
 
 
-const timeSlots = [
+const bookings = [
     {
         id: 1,
         name: 'Teeth Orthodontics',
@@ -15,13 +15,13 @@ const timeSlots = [
     {
         id: 2,
         name: 'Cosmetic Dentistry',
-        time: '10:00 AM - 11:3 0 AM',
+        time: '10:00 AM - 11:30 AM',
         space: 10
     },
     {
         id: 3,
         name: 'Teeth Cleaning',
-        time: '5:00 pM - 6:30 PM',
+        time: '5:00 PM - 6:30 PM',
         space: 10
     },
     {
@@ -47,12 +47,16 @@ const timeSlots = [
 const AvailableAppointments = ({ date }) => {
     return (
         <Container>
-            <h4>Appointments Available on {date.toDateString()}</h4>
+            <Typography sx={{color: "info.main", mb: 3}} variant="h4">Appointments Available on {date.toDateString()}</Typography>
+           
             <Grid container spacing={2}>
-                <Grid item  xs={12} sm={6} md={4}>
-                    
-                </Grid>
-                
+                {
+                    bookings.map(booking => <Booking
+                        key={booking.id}
+                        booking={booking}
+                    ></Booking>)
+                }
+
             </Grid>
         </Container>
     );
