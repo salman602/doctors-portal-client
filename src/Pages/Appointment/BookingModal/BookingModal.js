@@ -75,7 +75,7 @@ const BookingModal = ({ booking, date, openBooking, handleBookingClose }) => {
                             size="small"
                             sx={{mb: 2, width: '95%'}}
                         />
-                        <Button type="submit" sx={{ml: 'auto'}} variant="contained">Send</Button>
+                        <Button type="submit" sx={{textAlign: 'right'}} variant="contained">Send</Button>
                     </form>
                 </Box>
             </Fade>
