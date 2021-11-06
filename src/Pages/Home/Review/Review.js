@@ -5,7 +5,7 @@ const Review = ({ people }) => {
     const { name, review, liveIn, img } = people;
     return (
         <Grid xs={12} md={4}>
-            <Paper elevation={3} sx={{p: 3, mx:2}}>
+            <Paper elevation={3} sx={{p: 3}} rowSpacing={{xs: 0, sm: 2, md: 3}} >
                 <Box sx={{textAlign: 'left'}}>
                     <Typography variant="p" >{review}</Typography>
                     <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 2}}>

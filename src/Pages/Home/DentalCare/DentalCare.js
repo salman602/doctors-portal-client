@@ -8,7 +8,7 @@ const DentalCare = () => {
         <Container sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={4}>
-                    <img src={treatmentImg} alt="" width="100%" />
+                    <img src={treatmentImg} alt="" style={{maxWidth: '100%'}} />
                 </Grid>
                 <Grid sx={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}} item xs={12} md={8}>
                     <Box sx={{textAlign: 'left', p: 3}}>

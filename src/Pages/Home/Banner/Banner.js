@@ -25,7 +25,7 @@ const Banner = () => {
                 <Grid container spacing={2}>
 
 
-                    <Grid item xs={8} md={6} style={{ ...verticalAlign, textAlign: 'left' }}>
+                    <Grid item xs={12} sm={12} md={6} style={{ ...verticalAlign, textAlign: 'left' }}>
                         <Box>
                             <Typography variant="h3">
                                 Your New Smile <br />
@@ -37,8 +37,8 @@ const Banner = () => {
                             <Button variant="contained">GET APPOINTMENT</Button>
                         </Box>
                     </Grid>
-                    <Grid item xs={4} md={6} style={verticalAlign}>
-                        <img src={chair} alt="" width="400" />
+                    <Grid item xs={12} sm={12} md={6} style={verticalAlign}>
+                        <img style={{maxWidth: '100%'}} src={chair} alt="" width="400" />
                     </Grid>
 
 

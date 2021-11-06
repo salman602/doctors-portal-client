@@ -19,7 +19,7 @@ const AppointmentBanner = () => {
                 <Grid item xs={12} md={5}>
                     <img style={{marginTop: '-90px'}} src={doctor} alt="" width="400" height="auto" />
                 </Grid>
-                <Grid style={{textAlign: 'left'}} item xs={12} md={7}>
+                <Grid sx={{textAlign: 'left', p: 2}} item xs={12} md={7}>
                     <Typography sx={{ color: 'info.main', my: 2 }} variant="h5" component="div">
                         Appointment
                     </Typography>
