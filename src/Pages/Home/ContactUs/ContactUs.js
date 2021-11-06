@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, TextareaAutosize, Button, OutlinedInput } from '@mui/material';
+import { Container, Typography, Button, OutlinedInput } from '@mui/material';
 import { Box } from '@mui/system';
 import bg from '../../../images/appointment-bg.png';
 
