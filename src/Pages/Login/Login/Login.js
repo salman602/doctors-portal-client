@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Alert, AlertTitle, Box, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import login from '../../../images/login.png';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
-    const [loginData, setLoginData] = useState({})
+    const {user, isLoading, loginUser, authError} = useAuth();
+    const [loginData, setLoginData] = useState({});
+
+    
+    const location = useLocation();
+    const history = useHistory();
 
     const handleInputChange = (e) => {
         const field = e.target.name;
@@ -17,7 +23,8 @@ const Login = () => {
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
-        alert('submitting form')
+
+        loginUser(loginData.email, loginData.password, location, history);
     }
     return (
         <Container>
@@ -50,6 +57,15 @@ const Login = () => {
                                 <Button variant="text">New User? Please Register</Button>
                             </NavLink>
                         </form>
+                        {isLoading && <CircularProgress />}
+                        {user?.email && <Alert severity="success">
+                            <AlertTitle>Thank you</AlertTitle>
+                            You have been <strong>Logged in Successfully.</strong>
+                        </Alert>}
+                        {authError && <Alert severity="error">
+                            <AlertTitle>Error</AlertTitle>
+                            <strong>{authError}</strong>
+                        </Alert>}
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={6}>
