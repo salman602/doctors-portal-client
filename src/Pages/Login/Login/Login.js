@@ -5,7 +5,7 @@ import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
-    const {user, isLoading, loginUser, authError} = useAuth();
+    const {user, isLoading, loginUser, signInWithGoogle, authError} = useAuth();
     const [loginData, setLoginData] = useState({});
 
     
@@ -25,6 +25,10 @@ const Login = () => {
         e.preventDefault();
 
         loginUser(loginData.email, loginData.password, location, history);
+    }
+
+    const handleGoogleSignIn = () =>{
+        signInWithGoogle(location, history);
     }
     return (
         <Container>
@@ -57,6 +61,7 @@ const Login = () => {
                                 <Button variant="text">New User? Please Register</Button>
                             </NavLink>
                         </form>
+                        <Button onClick={handleGoogleSignIn} variant="contained">Google Sign in</Button>
                         {isLoading && <CircularProgress />}
                         {user?.email && <Alert severity="success">
                             <AlertTitle>Thank you</AlertTitle>
