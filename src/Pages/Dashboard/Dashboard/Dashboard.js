@@ -6,18 +6,23 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useParams,
+    useRouteMatch
+} from "react-router-dom";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Calender from '../../Shared/Calender/Calender';
-import Appointments from '../Appointments/Appointments';
+
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import EventIcon from '@mui/icons-material/Event';
@@ -25,7 +30,10 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { NavLink } from 'react-router-dom';
-import { ListItemButton } from '@mui/material';
+import { Button, ListItemButton } from '@mui/material';
+import DashboardHome from '../DashboardHome/DashboardHome';
+import MakeAdmin from '../MakeAdmin/MakeAdmin';
+import AddDoctor from '../AddDoctor/AddDoctor';
 
 const drawerWidth = 250;
 
@@ -33,8 +41,7 @@ function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
-    // calender set date state
-    const [date, setDate] = React.useState(new Date());
+    let { path, url } = useRouteMatch();
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -42,16 +49,47 @@ function Dashboard(props) {
 
     const drawer = (
         <div style={{ backgroundImage: 'linear-gradient(to bottom, aquamarine , rgb(91,146,229))', color: 'white', height: '100%' }}>
-            
+
             <Toolbar />
-            
-            <NavLink to="/appointment" style={{textDecoration: 'none', color: 'white'}}>
+
+            <NavLink to="/appointment" style={{ textDecoration: 'none', color: 'white' }}>
                 <ListItem>
                     <ListItemButton>
                         <ListItemText primary="Get an Appointment" />
                     </ListItemButton>
                 </ListItem>
             </NavLink>
+            <NavLink to={`${url}`} style={{ textDecoration: 'none', color: 'white' }}>
+                <ListItem>
+                    <ListItemButton>
+                        <ListItemText primary="Dashboard" />
+                    </ListItemButton>
+                </ListItem>
+            </NavLink>
+            <NavLink to={`${url}/makeAdmin`} style={{ textDecoration: 'none', color: 'white' }}>
+                <ListItem>
+                    <ListItemButton>
+                        <ListItemText primary="Make Admin" />
+                    </ListItemButton>
+                </ListItem>
+            </NavLink>
+            <NavLink to={`${url}/addDoctor`} style={{ textDecoration: 'none', color: 'white' }}>
+                <ListItem>
+                    <ListItemButton>
+                        <ListItemText primary="Add Doctor" />
+                    </ListItemButton>
+                </ListItem>
+            </NavLink>
+
+            {/* <Link to={`${url}`}>
+                <Button color="inherit">Dashboard</Button>
+            </Link>
+            <Link to={`${url}/makeAdmin`}>
+                <Button color="inherit">Make Admin</Button>
+            </Link>
+            <Link to={`${url}/addDoctor`}>
+                <Button color="inherit">Add Doctor</Button>
+            </Link> */}
 
             <List>
                 {['Dashboard', 'Appointments', 'Patients', 'Prescription', 'Settings'].map((text, index) => (
@@ -140,17 +178,18 @@ function Dashboard(props) {
                 sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
-                <Grid container spacing={4}>
 
-                    <Grid item xs={12} md={6}>
-                        <Calender date={date} setDate={setDate}></Calender>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-
-                        <Appointments date={date}></Appointments>
-                    </Grid>
-
-                </Grid>
+                <Switch>
+                    <Route exact path={path}>
+                        <DashboardHome></DashboardHome>
+                    </Route>
+                    <Route path={`${path}/makeAdmin`}>
+                        <MakeAdmin></MakeAdmin>
+                    </Route>
+                    <Route path={`${path}/addDoctor`}>
+                        <AddDoctor></AddDoctor>
+                    </Route>
+                </Switch>
             </Box>
         </Box>
     );
