@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import initializeAuthentication from "../Pages/Login/Firebase/firebase.init";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged,updateProfile, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, updateProfile, signOut } from "firebase/auth";
 
 
 // initialize firebase authentication
@@ -18,17 +18,18 @@ const useFirebase = () => {
         setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const newUser = {email, displayName: name};
+                const newUser = { email, displayName: name };
                 setUser(newUser);
-                
+                // save user to the database with email and password
+                saveUser(email, name, 'POST');
                 //send name to firebase after creating an user
                 updateProfile(auth.currentUser, {
                     displayName: name
-                  }).then(() => {
-                    
-                  }).catch((error) => {
-                    
-                  });
+                }).then(() => {
+
+                }).catch((error) => {
+
+                });
                 setAuthError('');
                 history.replace('/')
             })
@@ -37,6 +38,7 @@ const useFirebase = () => {
             })
             .finally(() => setIsLoading(false));
     }
+    
 
     const loginUser = (email, password, location, history) => {
         setIsLoading(true);
@@ -56,14 +58,30 @@ const useFirebase = () => {
         signInWithPopup(auth, googleProvider)
             .then((result) => {
                 const user = result.user;
+                console.log(user)
+                // save user to the database with google sign in
+                saveUser(user.email, user.displayName, 'PUT');
                 const destination = location?.state?.from || '/';
                 history.replace(destination);
-                
                 setAuthError('');
+
             }).catch((error) => {
                 setAuthError(error.message);
             })
             .finally(() => setIsLoading(false));
+    };
+
+    // save user information to the database
+    const saveUser = (email, displayName, method) => {
+        const user = { email, displayName };
+        fetch('http://localhost:5000/users', {
+            method: method,
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then()
     }
 
     // Observer
