@@ -1,9 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Alert, AlertTitle, Button, TextField } from '@mui/material';
+
 
 const MakeAdmin = () => {
+    const [email, setEmail] = useState('');
+    const [success, setSuccess] = useState(false);
+
+    const handleOnBlur = e => {
+        setEmail(e.target.value);
+    }
+    const handleAdminSubmit = e => {
+        e.preventDefault();
+        const user = { email: email };
+
+        fetch('http://localhost:5000/users/admin', {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount) {
+                    setSuccess(true);
+                    console.log(data);
+                }
+            })
+    }
     return (
         <div>
             <h2>Make an admin</h2>
+            <form onSubmit={handleAdminSubmit}>
+                <TextField
+                    sx={{width: '50%'}}
+                    label="Email"
+                    variant="standard"
+                    type="email"
+                    onBlur={handleOnBlur}
+                />
+                <Button type="submit" variant="contained">Make Admin</Button>
+            </form>
+            {success && <Alert severity="success">
+                <AlertTitle>Thank you</AlertTitle>
+                <strong>User has made as Admin Successfully.</strong>
+            </Alert>}
         </div>
     );
 };

@@ -34,12 +34,14 @@ import { Button, ListItemButton } from '@mui/material';
 import DashboardHome from '../DashboardHome/DashboardHome';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import AddDoctor from '../AddDoctor/AddDoctor';
+import useAuth from '../../../hooks/useAuth';
 
 const drawerWidth = 250;
 
 function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const { isAdmin } = useAuth();
 
     let { path, url } = useRouteMatch();
 
@@ -66,20 +68,22 @@ function Dashboard(props) {
                     </ListItemButton>
                 </ListItem>
             </NavLink>
-            <NavLink to={`${url}/makeAdmin`} style={{ textDecoration: 'none', color: 'white' }}>
-                <ListItem>
-                    <ListItemButton>
-                        <ListItemText primary="Make Admin" />
-                    </ListItemButton>
-                </ListItem>
-            </NavLink>
-            <NavLink to={`${url}/addDoctor`} style={{ textDecoration: 'none', color: 'white' }}>
-                <ListItem>
-                    <ListItemButton>
-                        <ListItemText primary="Add Doctor" />
-                    </ListItemButton>
-                </ListItem>
-            </NavLink>
+            {isAdmin && <Box>
+                <NavLink to={`${url}/makeAdmin`} style={{ textDecoration: 'none', color: 'white' }}>
+                    <ListItem>
+                        <ListItemButton>
+                            <ListItemText primary="Make Admin" />
+                        </ListItemButton>
+                    </ListItem>
+                </NavLink>
+                <NavLink to={`${url}/addDoctor`} style={{ textDecoration: 'none', color: 'white' }}>
+                    <ListItem>
+                        <ListItemButton>
+                            <ListItemText primary="Add Doctor" />
+                        </ListItemButton>
+                    </ListItem>
+                </NavLink>
+            </Box>}
 
             {/* <Link to={`${url}`}>
                 <Button color="inherit">Dashboard</Button>
