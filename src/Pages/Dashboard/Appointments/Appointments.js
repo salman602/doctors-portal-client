@@ -13,12 +13,16 @@ import { Box } from '@mui/system';
 const Appointments = ({ date }) => {
     const formatedDate = date.toLocaleDateString();
     // console.log(formatedDate)
-    const { user } = useAuth();
+    const { user, token } = useAuth();
 
     const [appointments, setAppointments] = useState([]);
     useEffect(() => {
         const url = `http://localhost:5000/appointments?email=${user.email}&date=${formatedDate}`;
-        fetch(url)
+        fetch(url,{
+            headers: {
+                'authorization': `Bearer ${token}`
+            }
+        })
             .then(res => res.json())
             .then(data => setAppointments(data))
     }, [formatedDate]);
