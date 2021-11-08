@@ -9,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import {
     Switch,
     Route,
-    Link,
     useRouteMatch
 } from "react-router-dom";
 import List from '@mui/material/List';
@@ -28,7 +27,7 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { NavLink } from 'react-router-dom';
-import { Button, ListItemButton } from '@mui/material';
+import { ListItemButton } from '@mui/material';
 import DashboardHome from '../DashboardHome/DashboardHome';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import AddDoctor from '../AddDoctor/AddDoctor';
