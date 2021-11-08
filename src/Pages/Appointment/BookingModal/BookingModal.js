@@ -47,7 +47,7 @@ const BookingModal = ({ booking, date, openBooking, handleBookingClose, setAppoi
         console.log(appointment)
         
         // send data to server
-        fetch('http://localhost:5000/appointments', {
+        fetch('https://warm-cliffs-41247.herokuapp.com/appointments', {
             method: 'POST',
             headers: {
                 'Content-type' : 'application/json'
