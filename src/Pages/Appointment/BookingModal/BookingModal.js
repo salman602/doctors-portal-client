@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -20,48 +20,49 @@ const style = {
 };
 
 const BookingModal = ({ booking, date, openBooking, handleBookingClose, setAppointmentConfirmation }) => {
-    const {user} = useAuth();
-    const { name, time } = booking;
+    const { user } = useAuth();
+    const { name, time, price } = booking;
 
-    const initialInfo = {patientName: user.displayName, email: user.email, phone: ''};
+    const initialInfo = { patientName: user.displayName, email: user.email, phone: '' };
 
     const [bookingInfo, setBookingInfo] = useState(initialInfo);
 
     const handleOnBlur = e => {
         const field = e.target.name;
         const value = e.target.value;
-        const updatedInfo = {...bookingInfo};
+        const updatedInfo = { ...bookingInfo };
         updatedInfo[field] = value;
         setBookingInfo(updatedInfo);
     }
 
-    const handleBooking = (e) =>{
+    const handleBooking = (e) => {
         e.preventDefault();
         // collect data 
         const appointment = {
             ...bookingInfo,
             time,
+            price,
             serviceName: name,
             date: date.toLocaleDateString()
         }
         console.log(appointment)
-        
+
         // send data to server
         fetch('https://warm-cliffs-41247.herokuapp.com/appointments', {
             method: 'POST',
             headers: {
-                'Content-type' : 'application/json'
+                'Content-type': 'application/json'
             },
             body: JSON.stringify(appointment)
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.insertedId){
-                setAppointmentConfirmation(true)
-                handleBookingClose();
-                
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    setAppointmentConfirmation(true)
+                    handleBookingClose();
+
+                }
+            })
     }
     return (
         <Modal
@@ -77,14 +78,14 @@ const BookingModal = ({ booking, date, openBooking, handleBookingClose, setAppoi
         >
             <Fade in={openBooking}>
                 <Box sx={style}>
-                    <Typography sx={{mb: 2}} variant="h6">{name}</Typography>
+                    <Typography sx={{ mb: 2 }} variant="h6">{name}</Typography>
                     <form onSubmit={handleBooking}>
                         <TextField
                             disabled
                             id="outlined-size-small"
                             defaultValue={time}
                             size="small"
-                            sx={{mb: 2, width: '95%'}}
+                            sx={{ mb: 2, width: '95%' }}
                         />
                         <TextField
                             id="outlined-size-small"
@@ -92,7 +93,7 @@ const BookingModal = ({ booking, date, openBooking, handleBookingClose, setAppoi
                             defaultValue={user.displayName}
                             onBlur={handleOnBlur}
                             size="small"
-                            sx={{mb: 2, width: '95%'}}
+                            sx={{ mb: 2, width: '95%' }}
                         />
                         <TextField
                             id="outlined-size-small"
@@ -100,24 +101,24 @@ const BookingModal = ({ booking, date, openBooking, handleBookingClose, setAppoi
                             defaultValue={user.email}
                             onBlur={handleOnBlur}
                             size="small"
-                            sx={{mb: 2, width: '95%'}}
+                            sx={{ mb: 2, width: '95%' }}
                         />
                         <TextField
                             id="outlined-size-small"
                             name="phone"
-                            defaultValue="Phone Number"
+                            placeholder="Phone Number"
                             onBlur={handleOnBlur}
                             size="small"
-                            sx={{mb: 2, width: '95%'}}
+                            sx={{ mb: 2, width: '95%' }}
                         />
                         <TextField
                             disabled
                             id="outlined-size-small"
                             defaultValue={date.toDateString()}
                             size="small"
-                            sx={{mb: 2, width: '95%'}}
+                            sx={{ mb: 2, width: '95%' }}
                         />
-                        <Button type="submit" sx={{textAlign: 'right'}} variant="contained">Send</Button>
+                        <Button type="submit" sx={{ textAlign: 'right' }} variant="contained">Send</Button>
                     </form>
                 </Box>
             </Fade>

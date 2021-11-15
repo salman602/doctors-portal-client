@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { Link } from 'react-router-dom';
 
 const Appointments = ({ date }) => {
     const formatedDate = date.toLocaleDateString();
@@ -24,7 +25,7 @@ const Appointments = ({ date }) => {
     }, [formatedDate, user.email]);
     return (
         <div>
-            <Box sx={{display:'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="h6" component="span">Appointments</Typography>
                 <Typography variant="body2" component="span">{formatedDate}</Typography>
             </Box>
@@ -35,7 +36,8 @@ const Appointments = ({ date }) => {
                         <TableRow>
                             <TableCell>Name</TableCell>
                             <TableCell>Schedule</TableCell>
-                            <TableCell align="center">Action</TableCell>
+                            <TableCell>Service Name</TableCell>
+                            <TableCell align="center">Payment</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -48,7 +50,15 @@ const Appointments = ({ date }) => {
                                     {appointment.patientName}
                                 </TableCell>
                                 <TableCell>{appointment.time}</TableCell>
-                                <TableCell align="center">{appointment.calories}</TableCell>
+                                <TableCell>{appointment.serviceName}</TableCell>
+
+                                <TableCell align="center">
+                                    {appointment.payment ? 'Paid' :
+                                        <Link to={`dashboard/payment/${appointment._id}`}>
+                                            <button>Pay</button>
+                                        </Link>
+                                    }
+                                </TableCell>
 
                             </TableRow>
                         ))}
