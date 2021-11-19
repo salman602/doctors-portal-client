@@ -1,4 +1,6 @@
+import { Container, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import Doctor from '../Doctor/Doctor';
 
 const Doctors = () => {
     const [doctors, setDoctors] = useState([]);
@@ -9,7 +11,17 @@ const Doctors = () => {
     }, []);
     return (
         <div>
-            <h2>Our Doctors. {doctors.length}</h2>
+            <h2>Our Doctors.</h2>
+            <Container>
+                <Grid container spacing={2}>
+                    {
+                        doctors.map(doctor => <Doctor
+                            key={doctor._id}
+                            doctor={doctor}
+                        ></Doctor>)
+                    }
+                </Grid>
+            </Container>
         </div>
     );
 };
