@@ -1,7 +1,5 @@
 import React from 'react';
-
 import Box from '@mui/material/Box';
-
 import Grid from '@mui/material/Grid';
 import { Container, Typography } from '@mui/material';
 import fluoride from '../../../images/fluoride.png';
@@ -40,11 +38,11 @@ const Services = () => {
         <Box sx={{ flexGrow: 1, py: 3 }}>
             <Container>
 
-                <Typography sx={{color: 'info.main', fontWeight: 500}} variant="h6" component="div">
+                <Typography sx={{ color: 'info.main', fontWeight: 500 }} variant="h6" component="div">
                     OUR SERVICES
                 </Typography>
 
-                <Typography sx={{my: 3, fontWeight: 'bold'}} variant="h4" component="div">
+                <Typography sx={{ my: 3, fontWeight: 'bold' }} variant="h4" component="div">
                     Services We Provide
                 </Typography>
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
