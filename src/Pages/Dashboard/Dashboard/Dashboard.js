@@ -7,9 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import {
-    Switch,
-    Route,
-    useRouteMatch
+    Outlet
 } from "react-router-dom";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -28,12 +26,7 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { NavLink } from 'react-router-dom';
 import { ListItemButton } from '@mui/material';
-import DashboardHome from '../DashboardHome/DashboardHome';
-import MakeAdmin from '../MakeAdmin/MakeAdmin';
-import AddDoctor from '../AddDoctor/AddDoctor';
 import useAuth from '../../../hooks/useAuth';
-import AdminRoute from '../../Login/AdminRoute/AdminRoute';
-import Payment from '../Payment/Payment';
 
 const drawerWidth = 250;
 
@@ -41,8 +34,6 @@ function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const { isAdmin } = useAuth();
-
-    let { path, url } = useRouteMatch();
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -60,7 +51,7 @@ function Dashboard(props) {
                     </ListItemButton>
                 </ListItem>
             </NavLink>
-            <NavLink to={`${url}`} style={{ textDecoration: 'none', color: 'white' }}>
+            <NavLink to={`/dashboard`} style={{ textDecoration: 'none', color: 'white' }}>
                 <ListItem>
                     <ListItemButton>
                         <ListItemText primary="Dashboard" />
@@ -68,14 +59,14 @@ function Dashboard(props) {
                 </ListItem>
             </NavLink>
             {isAdmin && <Box>
-                <NavLink to={`${url}/makeAdmin`} style={{ textDecoration: 'none', color: 'white' }}>
+                <NavLink to={`/dashboard/makeAdmin`} style={{ textDecoration: 'none', color: 'white' }}>
                     <ListItem>
                         <ListItemButton>
                             <ListItemText primary="Make Admin" />
                         </ListItemButton>
                     </ListItem>
                 </NavLink>
-                <NavLink to={`${url}/addDoctor`} style={{ textDecoration: 'none', color: 'white' }}>
+                <NavLink to={`/dashboard/addDoctor`} style={{ textDecoration: 'none', color: 'white' }}>
                     <ListItem>
                         <ListItemButton>
                             <ListItemText primary="Add Doctor" />
@@ -182,20 +173,7 @@ function Dashboard(props) {
             >
                 <Toolbar />
 
-                <Switch>
-                    <Route exact path={path}>
-                        <DashboardHome></DashboardHome>
-                    </Route>
-                    <Route path={`${path}/payment/:appointmentId`}>
-                        <Payment></Payment>
-                    </Route>
-                    <AdminRoute path={`${path}/makeAdmin`}>
-                        <MakeAdmin></MakeAdmin>
-                    </AdminRoute>
-                    <AdminRoute path={`${path}/addDoctor`}>
-                        <AddDoctor></AddDoctor>
-                    </AdminRoute>
-                </Switch>
+                <Outlet></Outlet>
             </Box>
         </Box>
     );

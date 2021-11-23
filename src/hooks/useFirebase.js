@@ -16,7 +16,7 @@ const useFirebase = () => {
     const googleProvider = new GoogleAuthProvider();
 
 
-    const registerUser = (email, password, name, history) => {
+    const registerUser = (email, password, name, navigate) => {
         setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -33,21 +33,21 @@ const useFirebase = () => {
 
                 });
                 setAuthError('');
-                history.replace('/')
+                navigate('/')
             })
             .catch((error) => {
                 setAuthError(error.message);
             })
             .finally(() => setIsLoading(false));
     }
-    
 
-    const loginUser = (email, password, location, history) => {
+
+    const loginUser = (email, password, location, navigate) => {
         setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then(result => {
                 const destination = location?.state?.from || '/';
-                history.replace(destination);
+                navigate(destination);
                 setAuthError('');
             })
             .catch(error => setAuthError(error.message))
@@ -55,7 +55,7 @@ const useFirebase = () => {
     };
 
     // Google Sign in
-    const signInWithGoogle = (location, history) => {
+    const signInWithGoogle = (location, navigate) => {
         setIsLoading(true);
         signInWithPopup(auth, googleProvider)
             .then((result) => {
@@ -64,7 +64,7 @@ const useFirebase = () => {
                 // save user to the database with google sign in
                 saveUser(user.email, user.displayName, 'PUT');
                 const destination = location?.state?.from || '/';
-                history.replace(destination);
+                navigate(destination);
                 setAuthError('');
 
             }).catch((error) => {
@@ -93,9 +93,9 @@ const useFirebase = () => {
             if (user) {
                 setUser(user);
                 getIdToken(user)
-                .then(idToken => {
-                    setToken(idToken);
-                })
+                    .then(idToken => {
+                        setToken(idToken);
+                    })
             } else {
                 setUser({})
             }
@@ -105,11 +105,11 @@ const useFirebase = () => {
     }, [auth]);
 
     // Load data from server for Admin checking
-    useEffect(()=>{
+    useEffect(() => {
         fetch(`https://warm-cliffs-41247.herokuapp.com/users/${user.email}`)
-        .then(res => res.json())
-        .then(data => setIsAdmin(data.admin))
-    },[user.email])
+            .then(res => res.json())
+            .then(data => setIsAdmin(data.admin))
+    }, [user.email])
 
     const logOut = () => {
         setIsLoading(true);

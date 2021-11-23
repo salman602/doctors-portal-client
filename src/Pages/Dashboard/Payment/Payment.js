@@ -24,7 +24,7 @@ const Payment = () => {
     console.log(totalPrice, appointmentPrice, tax)
     console.log(typeof (appointmentPrice, tax))
     const discount = (totalPrice * 0.2).toFixed(2);
-    const grandTotal = parseInt((totalPrice - discount).toFixed(2));
+    const grandTotal = parseFloat((totalPrice - discount).toFixed(2));
 
     return (
         <div>

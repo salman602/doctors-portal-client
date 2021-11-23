@@ -7,9 +7,6 @@ import cavity from '../../../images/cavity.png';
 import whitening from '../../../images/whitening.png';
 import Service from '../Service/Service';
 
-import { cyan } from '@mui/material/colors';
-const primary = cyan[500];
-const accent = cyan['A400'];
 
 
 const services = [
