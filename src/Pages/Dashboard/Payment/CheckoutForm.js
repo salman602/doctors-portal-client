@@ -16,7 +16,7 @@ const CheckoutForm = ({ appointment, grandTotal }) => {
     const [clientSecret, setClientSecret] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:5000/create-payment-intent', {
+        fetch('https://thawing-shelf-76158.herokuapp.com/create-payment-intent', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -87,7 +87,7 @@ const CheckoutForm = ({ appointment, grandTotal }) => {
                 last4: paymentMethod.card.last4,
                 transection: paymentIntent.client_secret.slice('_secret')[0]
             };
-            const url = `http://localhost:5000/appointments/${_id}`;
+            const url = `https://thawing-shelf-76158.herokuapp.com/appointments/${_id}`;
             fetch(url, {
                 method: 'PUT',
                 headers: {

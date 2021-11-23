@@ -17,7 +17,7 @@ const AddDoctor = () => {
 
         // from mdn using fetch article
 
-        fetch('http://localhost:5000/doctors', {
+        fetch('https://thawing-shelf-76158.herokuapp.com/doctors', {
             method: 'POST',
             body: formData
         })
